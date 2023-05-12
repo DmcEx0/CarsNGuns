@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36703bbd71e315a48887a4a47b74b61a, type: 3}
   m_Name: Minigun
   m_EditorClassIdentifier: 
-  _weaponPrefab: {fileID: 4404494122205460624, guid: c3e64e0de36c1ce498b3c1d75673e2ff,
+  _weaponPrefab: {fileID: 5414269810335655843, guid: d6b5cc8159adaa84ba1b6b133ef3f8a2,
     type: 3}
   _bulletPrefab: {fileID: 703471927309486875, guid: 568b1989d284c3448b194cd37bfebd8a,
     type: 3}

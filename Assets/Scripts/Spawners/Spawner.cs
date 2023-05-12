@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +9,13 @@ public abstract class Spawner : MonoBehaviour
     [SerializeField] protected bool IsAutoExpand = false;
 
     protected List<Transform> SpawnPoints;
+
     protected GameObject Container;
 
     protected void SetSpawnPoints(Transform spawnPointContainer)
     {
         SpawnPoints = new List<Transform>();
-
+        
         for (int i = 0; i < spawnPointContainer.childCount; i++)
         {
             SpawnPoints.Add(spawnPointContainer.GetChild(i));

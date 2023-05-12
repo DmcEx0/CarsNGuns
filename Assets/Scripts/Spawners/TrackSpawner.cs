@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,7 +24,7 @@ public class TrackSpawner : Spawner
         int maxQuantityTrackOnScene = 3;
 
         PartTrack newTrack = _pool.GetFreeElement();
-        newTrack.NextTrackSpawned += Spawn;
+        newTrack.NextTrackSpawned += Spawn; 
         newTrack.transform.position = _spawnedTrack[_spawnedTrack.Count - 1].EndPoint.position - newTrack.StartPoint.localPosition;
         EnemyCarSpawned?.Invoke(newTrack.EnemnySpawnPointsCointainer);
 
@@ -36,7 +35,7 @@ public class TrackSpawner : Spawner
             _spawnedTrack[0].NextTrackSpawned -= Spawn;
             _spawnedTrack[0].gameObject.SetActive(false);
             _spawnedTrack.RemoveAt(0);
-        };
+        }
     }
 
     protected override void CreatePool()

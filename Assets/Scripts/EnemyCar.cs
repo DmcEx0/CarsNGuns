@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCar : MonoBehaviour
@@ -9,16 +7,16 @@ public class EnemyCar : MonoBehaviour
 
     private void Start()
     {
-        int minMoveSpeed = 10;
-        int maxMoveSpeed = 21;
+        int minMoveSpeed = 13;
+        int maxMoveSpeed = 15;
 
         _moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
 
         _rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + transform.forward * _moveSpeed * Time.deltaTime);
+        _rb.MovePosition(_rb.position + _rb.transform.forward * _moveSpeed * Time.fixedDeltaTime);
     }
 }

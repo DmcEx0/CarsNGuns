@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class PlayerCar : MonoBehaviour
 {
+    [SerializeField] private WeaponData _defaultWeapon;
     [SerializeField] private Transform _weaponPosition;
 
     private Weapon _currentWeapon;
+
+    private void Start()
+    {
+        SetWeapon(_defaultWeapon);
+    }
 
     private void Update()
     {

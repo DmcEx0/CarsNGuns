@@ -1,17 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EnemyCarSpawner : Spawner
 {
-    [SerializeField] private EnemyCar _enemyCar;
+    [SerializeField] private List<EnemyCar> _enemiesCars;
 
     [SerializeField] private int _minNumberOfEnemyCar = 4;
     [SerializeField] private int _maxNumberOfEnemyCar = 9;
 
     private TrackSpawner _trackSpawner;
-    private ObjectPool<EnemyCar> _pool;
+    private List<ObjectPool<EnemyCar>> _pools;
 
     private int _numberOfEnemiesCars;
 
@@ -32,6 +30,7 @@ public class EnemyCarSpawner : Spawner
 
     private void Start()
     {
+        _pools = new List<ObjectPool<EnemyCar>>();
         CreatePool();
     }
 
@@ -42,9 +41,11 @@ public class EnemyCarSpawner : Spawner
         for (int i = 0; i < _numberOfEnemiesCars; i++)
         {
             int indexOfSpawnPoint = Random.Range(0, SpawnPoints.Count);
+            int indexOfPool = Random.Range(0, _pools.Count);
 
-            EnemyCar enemyCar = _pool.GetFreeElement();
-            enemyCar.transform.position = SpawnPoints[indexOfSpawnPoint].transform.position;
+            EnemyCar newEnemyCar = _pools[indexOfPool].GetFreeElement();
+            newEnemyCar.transform.rotation = Quaternion.identity;
+            newEnemyCar.transform.position = SpawnPoints[indexOfSpawnPoint].transform.position;
             SpawnPoints.RemoveAt(indexOfSpawnPoint);
         }
     }
@@ -53,7 +54,10 @@ public class EnemyCarSpawner : Spawner
     {
         base.CreatePool();
 
-        _pool = new ObjectPool<EnemyCar>(_enemyCar, PoolCount, Container.transform, IsAutoExpand);
+        foreach (var enemyCar in _enemiesCars)
+        {
+            _pools.Add(new ObjectPool<EnemyCar>(enemyCar, PoolCount, Container.transform, IsAutoExpand));
+        }
     }
 
     private void SetSpawnPointOnTrack(Transform spawnPointContaine)
