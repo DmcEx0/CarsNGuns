@@ -6,7 +6,7 @@ public class CarFallenCheker : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<EnemyCar>(out EnemyCar enemyCar))
+        if (other.TryGetComponent<EnemyCarMovement>(out EnemyCarMovement enemyCar))
         {
             enemyCar.gameObject.SetActive(false);
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -6,27 +7,35 @@ public class PlayerCar : MonoBehaviour
     [SerializeField] private WeaponData _defaultWeapon;
     [SerializeField] private Transform _weaponPosition;
 
-    private Weapon _currentWeapon;
+    public Weapon CurrentWeapon { get; private set; }
+
+    private WaitForSeconds _delay;
 
     private void Start()
     {
         SetWeapon(_defaultWeapon);
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            _currentWeapon.TakeShot();
-        }
+        _delay = new WaitForSeconds(CurrentWeapon.AttackRatio);
     }
 
     public void SetWeapon(WeaponData weaponData)
     {
-        if (_currentWeapon != null)
-            Destroy(_currentWeapon.gameObject);
+        if (CurrentWeapon != null)
+            Destroy(CurrentWeapon.gameObject);
 
-        _currentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponPosition.position, transform.rotation, transform);
-        _currentWeapon.Initialize(weaponData);
+        CurrentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponPosition.position, transform.rotation, transform);
+        CurrentWeapon.Initialize(weaponData);
+
+        //StartCoroutine(TakeShots());
+    }
+
+    private IEnumerator TakeShots()
+    {
+        while (CurrentWeapon != null) //пока игрок не умрет
+        {
+            CurrentWeapon.TakeShot();
+
+            yield return _delay;
+        }
     }
 }
