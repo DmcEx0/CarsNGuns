@@ -6,6 +6,7 @@ public class WeaponData : ScriptableObject
     [Header("Common")]
     [SerializeField] private Weapon _weaponPrefab;
     [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private int _numberOfBulletInPool;
     [SerializeField] private TypeDamage _typeDamage;
 
     [Header("Personal")]
@@ -26,4 +27,5 @@ public class WeaponData : ScriptableObject
     public float AttackRatio => _attackRatio;
     public float DamagePerAttack => _damagePerAttack;
     public float BulletSpeed => _bulletSpeed;
+    public int NumberOfBulletInPool => _numberOfBulletInPool;
 }
